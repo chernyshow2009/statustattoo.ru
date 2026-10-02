@@ -207,6 +207,7 @@ body.menu-open .menu-foot{opacity:1}
   position:relative;width:100%;max-width:1200px;
   height:100svh;margin:0 auto;
 }
+.art-top,.art-mid{display:contents}
 .lt{
   position:absolute;
   font-family:var(--headline);font-weight:300;color:var(--dark);
@@ -235,7 +236,7 @@ body.loaded .lt{opacity:1;transform:none}
 .lb2{top:42.9vh;left:20.9%}
 .lb3{top:44.3vh;left:27.3%}
 .lb4{top:45.7vh;left:32.6%}
-.lt-studia{top:4.5vh;left:auto;right:2.8%;font-size:clamp(30px,6.4vw,84px);letter-spacing:.02em}
+.lt-studia{top:4.5vh;left:auto;right:2.8%;font-size:clamp(30px,6.4vw,84px);letter-spacing:.02em;line-height:1}
 .lt-citypos{top:44.6vh;left:auto;right:14%}
 .hero-mid{
   position:absolute;top:57vh;left:50%;transform:translateX(-50%);
@@ -414,6 +415,7 @@ body.loaded .hero-down{opacity:1}
   letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
 }
 .master-actions{margin-top:clamp(40px,5vw,60px);text-align:center}
+.m-dark .master-actions{margin-top:clamp(24px,3.5vw,36px)}
 
 /* ============ WORKS ============ */
 #works{
@@ -698,24 +700,36 @@ footer{
 @media (max-width:760px){
   .head-vk{display:none}
   .brand .bname{font-size:16px}
-  /* hero art rearranged */
-  .lt-sm{font-size:20px;top:15vh}
-  .lt1{left:8%}.lt2{left:24%}.lt3{left:40%}.lt4{left:56%}.lt5{left:72%}.lt6{left:86%}
-  .lt-big{font-size:19vw}
-  .lb1{top:34vh;left:8%}
-  .lb2{top:39vh;left:28%}
-  .lb3{top:44vh;left:48%}
-  .lb4{top:49vh;left:68%}
-  .lt-studia{top:9vh;right:6%;font-size:11vw}
-  .lt-citypos{top:59.5vh;left:50%;right:auto;transform:translateX(-50%);font-size:16px}
-  .hero-mid{top:65vh}
-  .hero-cta{top:76vh}
-  .hero-consent{top:calc(76vh + 66px)}
+  /* hero: потоковая вёрстка — наложения исключены */
+  .hero-art{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    height:100svh;padding:78px 20px 40px;
+  }
+  .art-top{
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;
+    width:100%;
+  }
+  .art-mid{
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+    width:100%;margin-top:6svh;column-gap:5vw;
+  }
+  .art-top .lt,.art-mid .lt{position:static}
+  .lt-sm{font-size:20px;top:auto}
+  .lt1,.lt2,.lt3,.lt4,.lt5,.lt6{left:auto}
+  .lt-studia{flex-basis:100%;text-align:center;font-size:13.5vw;line-height:1;margin-top:14px;top:auto;right:auto}
+  .lt-big{font-size:17vw;line-height:1;top:auto}
+  .lb1{left:auto;margin-top:0}
+  .lb2{left:auto;margin-top:.13em}
+  .lb3{left:auto;margin-top:.26em}
+  .lb4{left:auto;margin-top:.39em}
+  .lt-citypos{flex-basis:100%;text-align:center;margin-top:16px;top:auto;left:auto;right:auto;transform:none;font-size:15px}
+  .hero-mid{position:static;transform:none;width:100%;margin-top:6svh}
+  .hero-cta{position:static;transform:none;width:100%;margin-top:26px}
+  .hero-consent{position:static;transform:none;width:100%;margin-top:12px}
   .hero-down{display:none}
   .btn{min-width:0;padding:0 20px}
   .btn-pair{width:100%}
-  .hero-cta{width:calc(100% - 36px)}
-  .hero-cta .btn{flex:1}
+  .btn-pair .btn{flex:1}
   .styles-grid{grid-template-columns:1fr}
   .master-stats{grid-template-columns:repeat(2,1fr)}
   .scheme{grid-template-columns:1fr}
@@ -727,6 +741,20 @@ footer{
   .works-foot{flex-direction:column;align-items:flex-start}
   .lb-btn{display:none}
   .menu-foot .mf-note{margin-left:0;width:100%}
+}
+@media (max-width:480px){
+  .btn{font-size:13px;padding:0 14px}
+  .lt-sm{font-size:17px}
+}
+@media (max-width:760px) and (max-height:660px){
+  .hero-art{padding:64px 20px 22px}
+  .art-top .lt-studia{font-size:11.5vw;margin-top:10px}
+  .art-mid{margin-top:3svh}
+  .art-mid .lt-big{font-size:15vw}
+  .art-mid .lt-citypos{margin-top:10px}
+  .hero-mid{margin-top:3svh}
+  .hero-cta{margin-top:18px}
+  .hero-consent{margin-top:8px}
 }
 @media (max-width:400px){
   .lt-sm{font-size:17px}
@@ -784,19 +812,23 @@ footer{
   <div class="hero-bg" role="img" aria-label="Татуировка самурай у ворот тории — работа мастера"></div>
   <div class="hero-veil"></div>
   <div class="hero-art">
-    <span class="lt lt-sm lt1" style="--d:.25s">С</span>
-    <span class="lt lt-sm lt2" style="--d:.35s">Т</span>
-    <span class="lt lt-sm lt3" style="--d:.45s">А</span>
-    <span class="lt lt-sm lt4" style="--d:.55s">Т</span>
-    <span class="lt lt-sm lt5" style="--d:.65s">У</span>
-    <span class="lt lt-sm lt6" style="--d:.75s">С</span>
+    <div class="art-top">
+      <span class="lt lt-sm lt1" style="--d:.25s">С</span>
+      <span class="lt lt-sm lt2" style="--d:.35s">Т</span>
+      <span class="lt lt-sm lt3" style="--d:.45s">А</span>
+      <span class="lt lt-sm lt4" style="--d:.55s">Т</span>
+      <span class="lt lt-sm lt5" style="--d:.65s">У</span>
+      <span class="lt lt-sm lt6" style="--d:.75s">С</span>
+      <span class="lt lt-big lt-studia" style="--d:1s">студия</span>
+    </div>
 
-    <span class="lt lt-big lb1" style="--d:.5s">Т</span>
-    <span class="lt lt-big lb2" style="--d:.62s">А</span>
-    <span class="lt lt-big lb3" style="--d:.74s">Т</span>
-    <span class="lt lt-big lb4" style="--d:.86s">У</span>
-    <span class="lt lt-big lt-studia" style="--d:1s">студия</span>
-    <span class="lt lt-city lt-citypos" style="--d:.9s">Череповец</span>
+    <div class="art-mid">
+      <span class="lt lt-big lb1" style="--d:.5s">Т</span>
+      <span class="lt lt-big lb2" style="--d:.62s">А</span>
+      <span class="lt lt-big lb3" style="--d:.74s">Т</span>
+      <span class="lt lt-big lb4" style="--d:.86s">У</span>
+      <span class="lt lt-city lt-citypos" style="--d:.9s">Череповец</span>
+    </div>
 
     <div class="hero-mid">
       <p>Камерная студия одного мастера — для тех, кто идёт за татуировкой,
@@ -829,6 +861,12 @@ footer{
   <span id="about" aria-hidden="true" style="position:absolute"></span>
   <div class="m-dark">
     <h2 class="sec-title rv">знакомство с мастером</h2>
+    <div class="master-actions rv dark-zone" style="--d:.12s">
+      <div class="btn-pair">
+        <a class="btn" href="#works">смотреть работы</a>
+        <a class="btn-sq" href="#works" aria-label="К работам">&gt;&gt;</a>
+      </div>
+    </div>
   </div>
   <div class="m-fade" aria-hidden="true"></div>
   <div class="wrap">
@@ -850,13 +888,6 @@ footer{
       <div class="session-line rv" style="--d:.3s">
         <b>На сеансе:</b> профессиональная анестезия · удобное кресло · музыка · ароматный чай ·
         перерывы тогда, когда нужны вам · все одноразовые расходники вскрываются строго при вас
-      </div>
-
-      <div class="master-actions rv" style="--d:.36s">
-        <div class="btn-pair">
-          <a class="btn" href="#works">смотреть работы</a>
-          <a class="btn-sq" href="#works" aria-label="К работам">&gt;&gt;</a>
-        </div>
       </div>
     </div>
 
@@ -1257,7 +1288,7 @@ document.addEventListener('keydown', function(e){
 
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4416e494b8fa003',t:'MTc5MDkyMDIzOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
 ft') step(-1);
   if(e.key === 'ArrowRight') step(1);
