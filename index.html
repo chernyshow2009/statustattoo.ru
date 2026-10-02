@@ -1319,6 +1319,37 @@ document.addEventListener('keydown', function(e){
 });
 
 })();
+
+/* диплинки: на телефонах ссылки на ВК открывают приложение, а не веб-версию */
+(function(){
+  var ua = navigator.userAgent || '';
+  var android = /android/i.test(ua);
+  var ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!android && !ios) return;
+  var VK_RE = /^https:\/\/vk\.(com|ru)\/(id160745487|tattostatus)\/?$/;
+  var gone = false;
+  window.addEventListener('pagehide', function(){ gone = true; });
+  window.addEventListener('blur', function(){ gone = true; });
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) gone = true; });
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if(!a || !VK_RE.test(a.href)) return;
+    var url = a.href;
+    e.preventDefault();
+    gone = false;
+    /* если приложение не открылось — через 1.3с открываем веб-версию */
+    setTimeout(function(){
+      if(!gone && !document.hidden) window.location.href = url;
+    }, 1300);
+    if(android){
+      window.location.href = url.replace(/^https:\/\//, 'intent://') +
+        '#Intent;scheme=https;package=com.vkontakte.android;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+    }else{
+      window.location.href = url.replace(/^https:\/\//, 'vk://');
+    }
+  }, false);
+})();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a445a37fc8aacf58',t:'MTc5MDk2NDM2Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a445bf762f08bbce',t:'MTc5MDk2NTUwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
