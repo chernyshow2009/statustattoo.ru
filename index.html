@@ -349,6 +349,7 @@ body.loaded .hero-down{opacity:1}
   .rv,.lt{transition:none!important;opacity:1!important;transform:none!important}
   .ticker-track{animation:none!important}
   #loader{transition:none!important}
+  .ld-mask{animation:none!important;opacity:1!important;transform:none!important}
 }
 
 /* ============ MASTER ============ */
@@ -1230,14 +1231,13 @@ function finishLoader(){
   document.body.classList.add('loaded');
   setTimeout(function(){ loader.style.display='none'; }, 1100);
 }
-loader.addEventListener('click', finishLoader);
+var ldSkip = document.querySelector('.ld-skip');
+ldSkip && ldSkip.addEventListener('click', finishLoader);
 setTimeout(function(){ ldWord && ldWord.classList.add('in'); }, reduce ? 60 : 1150);
 setTimeout(function(){ ldSub  && ldSub.classList.add('in');  }, reduce ? 120 : 1550);
 setTimeout(function(){ ldDots && ldDots.classList.add('in'); }, reduce ? 160 : 1750);
-setTimeout(finishLoader, reduce ? 550 : 3300);
-window.addEventListener('load', function(){
-  if(reduce) finishLoader();
-});
+/* заставка держится на 3с дольше прежнего (было 3300 / 550) */
+setTimeout(finishLoader, reduce ? 3550 : 6300);
 
 /* ---------- ticker & works strip: duplicate content for seamless loop ---------- */
 function doubleTrack(id){
